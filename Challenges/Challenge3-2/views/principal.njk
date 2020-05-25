@@ -1,0 +1,22 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+
+        <div id="wrapper">
+            <img src="{{about.img_url}}" alt="Rocketseat">
+            <h1>{{about.name}}</h1>
+            <h2>{{about.description}}</h2>
+            <div id="tecnologies">
+                <p>Com tecnologias como:</p>
+                <ul>
+                    {% for tech in about.techs %} 
+                    <li>{{tech}}</li>
+                    {% endfor %}
+                </ul>
+                <!-- <p>Com tecnologias como:</p>
+                <ul><li>React</li> <li>React Natice</li> <li>NodeJs</li></ul>-->
+            </div>
+        </div>
+
+{% endblock content %}
