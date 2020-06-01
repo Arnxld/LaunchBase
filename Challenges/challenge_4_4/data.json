@@ -1,0 +1,31 @@
+{
+  "teachers": [
+    {
+      "id": 1,
+      "name": "Pedro Henrique Arnold",
+      "birth": 1000425600000,
+      "degree": "master",
+      "class_type": "presential",
+      "classes": "Fisica, Matemática",
+      "created_at": 1590954272496
+    },
+    {
+      "id": 2,
+      "name": "Mayk Brito",
+      "birth": 833500800000,
+      "degree": "college",
+      "class_type": "distance",
+      "classes": "Desenvolvimento Web",
+      "created_at": 1590958448369
+    },
+    {
+      "id": 3,
+      "name": "Um nome aleatório",
+      "birth": 619142400000,
+      "degree": "master",
+      "class_type": "presential",
+      "classes": "Física, Matemática",
+      "created_at": 1590970936587
+    }
+  ]
+}
