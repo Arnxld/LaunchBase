@@ -1,0 +1,37 @@
+{% extends "users/layout.njk" %}
+
+{% block content %}
+
+    <div class="introduction">
+        <div id = "introduction-text">
+            <h1>As melhores receitas</h1>
+            <p>Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro</p> 
+        </div>
+        <div class="image-container">
+            <img src="/assets/chef.png" alt="">
+        </div>
+    </div>
+
+        
+    <section class="cards">
+
+    {% for recipe in recipes %}
+    {% if loop.index0 < 6 %}
+        <div class="card" id="{{loop.index0}}">
+            <div class="image-container">
+                <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+            </div>
+            <div class="card-info">
+                <p class="recipe-title">{{recipe.title}}</p>
+                <p class="recipe-author">por {{recipe.author}}</p>
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+
+    </section>
+
+
+    <script src="scripts.js"></script>
+
+{% endblock content %}

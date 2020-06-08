@@ -1,0 +1,46 @@
+{% extends "admins/layout.njk" %}
+
+{% block head %}
+    <title>Admin | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="wrapper">
+        <h1>Gerenciar receitas</h1>
+        <a href="/admin/recipes/create">Cadastrar nova receita</a>
+    </div>
+        
+    <section class="cards">
+
+    {% for recipe in recipes %}
+        <div class="card" id="{{loop.index0}}">
+            <div class="image-container">
+                <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+            </div>
+            <div class="card-info">
+                <p class="recipe-title">{{recipe.title}}</p>
+                <p class="recipe-author">por {{recipe.author}}</p>
+                <a>Visualizar</a>
+            </div>
+        </div>
+    {% endfor %}
+
+    </section>
+
+
+    <script>
+
+    const cards = document.querySelectorAll(".card")
+
+    for(card of cards) {
+        const visualizeButton = card.querySelector("a")
+        const cardId = card.getAttribute("id")
+        visualizeButton.addEventListener("click", function() {
+            window.location.href = `/admin/recipes/${cardId}`
+        })
+    }
+    
+    </script>
+
+{% endblock content %}
