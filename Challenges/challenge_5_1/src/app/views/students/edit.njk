@@ -1,0 +1,40 @@
+{% extends "layout.njk" %}
+
+
+{% block content %}
+
+
+
+<div class="card">
+    <section 
+        class = "avatar"
+        style = "background: url(https://source.unsplash.com/collection/8874679/500x500) no-repeat center center / cover">
+    
+    </section>
+
+    <section class="details">
+        <form method="POST" action="/students?_method=PUT">
+
+            {% include 'students/fields.njk'%}
+
+            <input type="hidden" name="id" value="{{student.id}}">
+            
+            <div id="formButtons">
+                <button type="submit">Salvar</button>
+                <button class = "deleteButton" form="form-delete" type="submit">Deletar</button>
+            </div>
+
+        </form>
+
+        <form id="form-delete"action="/students?_method=DELETE" method="POST">
+
+            <input type="hidden" name="id" value="{{student.id}}">
+        
+        </form>
+    </section>
+</div>
+
+
+{% include "confirm.njk"%}
+
+{% endblock content %}
