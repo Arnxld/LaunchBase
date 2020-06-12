@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+*{
+    padding: 0;
+    border: none;
+    margin: 0;
+}
+
+:root {
+    --primary-color: #fed8b1;
+    --secondary-color: black;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primary-color);
+}
+
+header {
+    background-color: white;
+    text-align: center;
+    width: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.links {
+    font-size: 20px;
+}
+
+.links a + a {
+    margin-left: 24px;
+}
+
+.links a {
+    text-decoration: none;
+    color: #777;
+    position: relative
+}
+
+.links a.active {
+    font-weight: bold;
+    color: brown;
+}
+
+.links a:hover{
+    color: var(--primary-color)
+}
+
+.links a::after {
+    content: "";
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    position:absolute;
+    bottom: -1px;
+    left: 0;
+}
+
+.links a:hover::after {
+    transition: width 500ms ease-in-out;
+    width: 100%
+}
+
+/* card ========= */
+
+.card {
+    min-height: 400px;
+    width: 800px;
+    background-color: white;
+
+    margin: 45px auto;
+
+    display: grid;
+    grid-template-columns: 40% 60%;
+
+    box-shadow: 0px 5px 6px -2px;
+
+    animation: up 2000ms ease-out
+}
+
+@keyframes up {
+    from {
+        opacity: 0;
+        transform: translateY(15px) translateX(-5px)
+    }
+    to {
+        opacity: 1
+    }
+}
+
+/* DETAILS ====== */
+
+.details {
+    padding: 32px
+}
+
+.details .item {
+    border-top: 1px solid rgba(0,0,0, 0.1);
+    padding: 16px 0;
+}
+
+.details .item:first-child {
+    border: none;
+}
+
+.details .item div:nth-child(1) {
+    font-size: 14px;
+    line-height: 24px;
+    color: #777;
+    letter-spacing: 0.7px;
+}
+
+.details .item div:nth-child(2) {
+    color: #555;
+    font-weight: bold;
+    font-size: 18px
+}
+
+.details .item span {
+    padding: 8px 16px;
+    background-color: #969393;
+    border-radius: 16px;
+    color: black;
+    margin-right: 4px;
+    margin-top: 8px;
+    display: inline-block;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+/* FORM */
+
+input {
+    width: 100%;
+    outline: none;
+    color: #555;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+input[type="radio"] {
+    width: initial;
+    margin-right: 4px
+}
+
+input::placeholder {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+select {
+    display: block;
+    font-size : 16px;
+    font-weight: bold;
+    width: 100%;
+    margin:0;
+    padding: .6em 1.4em .5em .8em;
+    border: 1px solid #aaa;
+    outline: none;
+    box-shadow: 0 1px 0 1px rgba(85, 59, 59, 0.04);
+    border-radius: 8px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+      linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+    cursor: pointer;
+}
+
+select::-ms-expand {
+    display: none
+}
+
+select:hover {
+	border-color: #888;
+}
+
+select:focus {
+	border-color: #aaa;
+	box-shadow: 0 0 1px 1px rgba(59, 153, 252, .7);
+	box-shadow: 0 0 0 3px -moz-mac-focusring;
+	color: #222;
+	outline: none;
+}
+
+button[type="submit"],
+a.button {
+    padding: 8px 32px;
+    background-color: var(--primary-color);
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 32px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+a.button {
+    display: block;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+
+#formButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    box-sizing: border-box;
+}
+
+#formButtons button[type="submit"] {
+    max-width: 204px;
+    cursor: pointer;
+}
+
+#formButtons .deleteButton{
+    justify-self: end;
+    max-width: 204px;
+    background-color: red
+}
+
+/* ======== TEACHERS INDEX ====== */
+
+.table-container {
+    display: block;
+    padding: 40px;
+    box-sizing: border-box;
+    text-align: center
+}
+
+.table-container table {
+    border-spacing: 0;
+    width: 100%
+}
+
+td, th {
+    padding: 16px;
+    border-bottom: 1px solid #d9d9d0;
+}
+
+th {
+    text-transform: uppercase;
+    color: #777;
+    font-size: 14px;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr td:first-child {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    align-items: center;
+}
+
+tbody tr td:first-child span {
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    box-shadow: 3px 1px 6px -4px black;
+    border: 1px solid var(--primary-color)
+}
+
+tbody tr td:nth-child(2) span {
+    background-color: brown;
+    padding: 8px 16px;
+    border-radius: 16px;
+    color: white
+}
+
+tbody tr td:nth-child(2) span + span {
+    margin-left: 8px;
+}
+
+tbody tr td:last-child a,
+.table-container > a {
+    background-color: grey;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    color: black;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    color: white
+}
+
+.table-container > a {
+    
+}
+
+tbody tr td:last-child,
+.table-container thead tr th:last-child {
+    text-align: center;
+}
+
+thead tr th:first-child {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    align-items: center;
+}
+
+thead tr th:first-child span{
+    width: 40px;
+    height: 40px;
+}
