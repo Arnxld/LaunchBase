@@ -1,0 +1,65 @@
+        <div class="item">
+            <div>Foto de perfil</div>
+            <div>
+                <input 
+                type="url" 
+                name="avatar_url"
+                placeholder="https://"
+                value="{{teacher.avatar_url}}">
+            </div>
+        </div>   
+
+        <div class="item">
+            <div>Nome</div>
+            <div>
+                <input 
+                type="text" 
+                name="name"
+                placeholder="Nome"
+                value="{{teacher.name}}">
+            </div>
+        </div>
+
+        <div class="item">
+            <div>Data de nascimento</div>
+            <div>
+                <input type="date" name="birth_date" value="{{teacher.birth_date}}">
+            </div>
+        </div>
+
+        <div class="item">
+            <div>Grau de escolaridade</div>
+            <div>
+                <select name="education_level">
+                    <option value="high_school" {% if teacher.education_level == "high_school" %} selected {% endif %}>Ensino Médio Completo</option>
+                    <option value="college" {% if teacher.education_level == "college" %} selected {% endif %}>Ensino Superior Completo</option>
+                    <option value="master" {% if teacher.education_level == "master" %} selected {% endif %}>Mestrado</option>
+                    <option value="doctor" {% if teacher.education_level == "doctor" %} selected {% endif %}>Doutorado</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="item">
+            <div>Tipo de aula</div>
+            <div>
+                <span><input 
+                        type="radio" 
+                        name="class_type" 
+                        value="presential" 
+                        {% if teacher.class_type == "presential" %} checked {% endif %}>Presencial
+                </span>
+                <span><input 
+                        type="radio" 
+                        name="class_type" 
+                        value="distance"
+                        {% if teacher.class_type == "distance" %} checked {% endif %}>A distância
+                </span>
+            </div>
+        </div>
+
+        <div class="item">
+            <div>Acompanhamento</div>
+            <div>
+                <input type="text" name="subjects_taught" placeholder="Separe as matérias por vírgula" value="{{teacher.subjects_taught}}">
+            </div>
+        </div>
