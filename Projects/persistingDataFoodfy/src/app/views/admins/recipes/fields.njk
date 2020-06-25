@@ -1,0 +1,67 @@
+<div class="field-group">
+    <div class="item">
+        <p class="name">Imagem da receita</p>
+        <input type="text" name="image" value="{{recipe.image}}">
+    </div>
+</div>
+
+<div class="field-group">
+    <div class="item">
+        <p class="name">Nome da receita</p>
+        <input type="text" name="title" value="{{recipe.title}}">
+    </div>
+</div>
+
+<div class="field-group">
+    <div class="item">
+        <p class="name">Chef</p>
+        <select name="chef" id="">
+            {% for chef in chefOptions %}
+            <option value="{{chef.id}}" {% if recipe.chef_id == chef.id %}selected{% endif %}>{{chef.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="field-group">
+    <div class="item" id="ingredients" >
+        <p class="name">Ingredientes</p>
+        {% if recipe.ingredients %}
+            {% for ingredient in recipe.ingredients %}
+            <div class="ingredient">
+                <input type="text" name="ingredients[]" value="{{ingredient}}">
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="ingredient">
+                <input type="text" name="ingredients[]">
+            </div>
+        {% endif %}
+
+    </div>
+        <button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
+</div>
+
+<div class="field-group">
+    <div class="item" id = "preparation">
+        <p class="name">Modo de preparo</p>
+        {% if recipe.preparation %}
+            {% for step in recipe.preparation %}
+            <div class="preparation">
+                <input type="text" name="preparation[]" value="{{step}}">
+            </div>
+            {% endfor %}
+
+        {% else %}
+            <div class="preparation">
+                <input type="text" name="preparation[]"">
+            </div>
+        {% endif %}
+    </div>
+        <button type="button" class="add-step">Adicionar novo passo</button>
+</div>
+
+<div class="item">
+    <p class="name">Informações adiconais</p>
+    <textarea name="information" id="" cols="30" rows="18">{{recipe.information}}</textarea>
+</div>
