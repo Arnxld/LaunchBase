@@ -17,6 +17,15 @@ body {
     color: white
 }
 
+footer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 48px;
+    padding: 10px 0;
+    border-top: 1px solid #202331;
+}
+
 header{
     padding: 30px;
     border-bottom: 1px solid #333;
