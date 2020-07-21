@@ -11,7 +11,9 @@
     <button type="submit" form="createForm">Salvar chef</button>
 </div>
 
-<form id="createForm" action="/admin/chefs" method="POST">
+<form id="createForm" action="/admin/chefs" method="POST" enctype="multipart/data">
+    <section id="createChef">
     {% include "admins/chefs/fields.njk"%}
+    </section>
 </form>
 {% endblock content %}

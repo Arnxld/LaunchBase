@@ -30,7 +30,6 @@ module.exports = {
 
         let results = await Recipe.create(req.body)
         const recipeId = results.rows[0].id
-        console.log(recipeId)
 
         // o forEach não espera o await
         // req.files.forEach(file => {
@@ -50,7 +49,7 @@ module.exports = {
         await Promise.all(recipeFilesPromises)
 
 
-        return res.redirect(`/admins/recipes/${recipeId}`)
+        return res.redirect(`/admin/recipes/${recipeId}/edit`)
     },
 
     show(req, res) {
@@ -82,7 +81,6 @@ module.exports = {
             // caminho da imagem no browser (colocar no buscador do browser) ex: localhost:3000/images/nome
             src: `${req.protocol}://${req.headers.host}${result.rows[0].path.replace("public","")}`
         }))
-        console.log(files)
 
 
         return res.render('admins/recipes/edit', {recipe, chefOptions:options, files})
@@ -98,12 +96,21 @@ module.exports = {
             if(req.body[key] == "" && key != "removed_files") return res.send("Por favor preencha todos os dados da receita.")
         }
 
+        // criar as imagens novas recebidas na edição
         if(req.files.length != 0) {
-            const newFilesPromise = req.files.map(file => File.create(file, req.body.id))
+            const newFilesPromise = req.files.map(file => File.create(file))
+            let results = await Promise.all(newFilesPromise)
+
+            const recipeFilesPromises = results.map(file => {
+                const fileId = file.rows[0].id
+                File.createAtRecipeFiles(fileId, req.body.id)
+            })
+            await Promise.all(recipeFilesPromises)
+            
         }
 
 
-
+        // deletar as fotos no banco de dados
         if(req.body.removed_files) {
             // quebra a string nas vírgulas, gerando um array ["1","2","3",""]
             const removedFiles = req.body.removed_files.split(",")
@@ -113,15 +120,17 @@ module.exports = {
 
             // deletar a foto do banco de dados
             const removedFilesPromise = removedFiles.map(id => {
-                File.delete(id)
                 File.deleteAtRecipeFiles(id)
+                File.delete(id)
             })
             await Promise.all(removedFilesPromise)
         }
 
+
         await Recipe.update(req.body)
 
-        return res.redirect(`/admin/recipes/${req.body.id}`)
+
+        return res.redirect(`/admin/recipes/${req.body.id}/edit`)
 
     },
 

@@ -41,13 +41,13 @@ routes.get('/admin/chefs', chefs.index)
 
 routes.get('/admin/chefs/create', chefs.create) // mostra o formulário de cadastro de um chefs
 
-routes.post('/admin/chefs', chefs.post) // cadastra o chef
+routes.post('/admin/chefs', multer.single('avatar'), chefs.post) // cadastra o chef
 
 routes.get('/admin/chefs/:id', chefs.show) // mostra o chef
 
 routes.get('/admin/chefs/:id/edit', chefs.edit) // formulário de edição
 
-routes.put('/admin/chefs', chefs.put) // edita o chefe
+routes.put('/admin/chefs',multer.single('avatar'), chefs.put) // edita o chefe
 
 routes.delete('/admin/chefs', chefs.delete) // deleta o chefe
 
