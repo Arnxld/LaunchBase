@@ -63,8 +63,16 @@ function addStep() {
     preparation.appendChild(newField)
 }
 
-document.querySelector(".add-ingredient").addEventListener("click", addIngredient)
-document.querySelector(".add-step").addEventListener("click", addStep)
+const addingredient = document.querySelector(".add-ingredient")
+const addstep = document.querySelector(".add-step")
+
+if(addingredient) {
+    addingredient.addEventListener("click", addIngredient)
+}
+
+if(addstep) {
+    addstep.addEventListener("click", addStep)
+}
 
 const PhotosUpload = {
     input: "",
@@ -184,6 +192,7 @@ const PhotosUpload = {
     },
 
     removeOldPhoto(event){
+        
         const photoDiv = event.target.parentNode // <div class="photo"></div>
         
         if(photoDiv.id) {
@@ -197,8 +206,83 @@ const PhotosUpload = {
         photoDiv.remove() // tira foto do front-end
     }
 
-    
-
 }
 
+const chefAvatarUpload = {
+    input: "",
+    preview: document.querySelector(".avatar-preview"),
+    uploadLimit: 1,
+    files: [],
+    handleFileInput(event) {
+        const {files:fileList} = event.target
+        chefAvatarUpload.input = event.target
 
+        // transformando o fileList em array
+        Array.from(fileList).forEach(file => {
+
+            chefAvatarUpload.files.push(file)
+
+            // ideia para ler os arquivos
+            const reader = new FileReader()
+            
+            reader.onload = () => {
+                // criando uma parte do HTML que só acontecerá quando o usuário entrar com uma foto
+                const image = new Image() // <img>
+                image.src = String(reader.result) // result é o resultado do readAsDataURL
+            
+                const div = chefAvatarUpload.getContainer(image)
+            
+                chefAvatarUpload.preview.appendChild(div)
+            }
+
+
+            reader.readAsDataURL(file)
+        })
+
+
+        // // tirando arquivos do fileList padrão e colocando no meu
+        // PhotosUpload.input.files = PhotosUpload.getAllFiles()
+    },
+    getAllFiles() { // remover files do fileList qnd clicar na foto
+        // não é possível remover coisas do fileList
+
+        // o dataTransfer nos permite criar um "fileList" manipulável
+        const dataTransfer = new ClipboardEvent("").clipboardData || new DataTransfer()
+
+        chefAvatarUpload.files.forEach(file => dataTransfer.items.add(file))
+
+        return dataTransfer.files
+    },
+    getContainer(image) { // faz os elementos do photo-preview
+        const div = document.createElement("div")
+        div.classList.add('avatar')
+
+        div.onclick = chefAvatarUpload.removePhoto
+        
+        div.appendChild(image) // colocando a imagem dentro da div
+
+        div.appendChild(chefAvatarUpload.getRemoveButton())
+
+        return div
+    },
+    getRemoveButton() { // faz o botão de excluir foto
+        const button = document.createElement('i')
+        button.classList.add('material-icons')
+        button.innerHTML = "close"
+
+        return button
+    },
+    removePhoto(event) { // remove a foto do gerenciador (front-end) (não remove fotos já vindas do back na edição)
+        const photoDiv = event.target.parentNode // div com a class photo <div class="photo"
+        const photosArray = Array.from(chefAvatarUpload.preview.children) // faz um array com todas as fotos do photos-preview
+        const index = photosArray.indexOf(photoDiv) // pega o index da foto que estou clicando
+
+        chefAvatarUpload.files.splice(index, 1) // tirando a foto do novo fileList
+
+        // depois de tirar é necessário atualizar
+        chefAvatarUpload.input.files = chefAvatarUpload.getAllFiles()
+
+        photoDiv.remove()
+    },
+
+}

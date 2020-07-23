@@ -722,3 +722,85 @@ form .item #chef_avatarInput {
 ::-webkit-file-upload-button {  /* o file:input bugou*/
     cursor:pointer; 
 }
+
+form #avatar-p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #111111;
+    font-weight: bold;
+}
+
+form .item .avatar-preview .avatar {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 1px solid #6558C3;
+
+}
+
+form .item .avatar-preview .avatar i {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(255,255,255, 0.6);
+    color: red;
+
+    opacity: 0;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 400%;
+}
+
+form .item .avatar-preview .avatar:hover i {
+    opacity: 1
+}
+
+form .item .avatar-preview img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* PRODUCT GALLERY */
+.gallery {
+    width: 100%
+}
+
+.highlight > img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.gallery .gallery-preview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+    margin-right: auto;
+    
+}
+
+.gallery .gallery-preview img{
+    height: 49.7px;
+    width: 100%;
+    object-fit: none;
+    object-position: 50% 50%;
+    border: 1px solid #efefef;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.gallery .gallery-preview img:hover,
+.gallery .gallery-preview img.active {
+    opacity: 1
+}

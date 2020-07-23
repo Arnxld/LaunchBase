@@ -1,6 +1,5 @@
 const Recipe = require('../models/Recipe')
 const File = require('../models/File')
-const { files } = require('../models/Recipe')
 
 module.exports = {
     index(req,res) {
@@ -52,10 +51,29 @@ module.exports = {
         return res.redirect(`/admin/recipes/${recipeId}/edit`)
     },
 
-    show(req, res) {
-        Recipe.find(req.params.id, function(recipe) {
-            return res.render('admins/recipes/show', {recipe})
-        })
+    async show(req, res) {
+        let result = await Recipe.find(req.params.id)
+        recipe = result.rows[0]
+
+        if(!recipe) return res.send("recipe not found")
+
+        // get images
+        let results = await Recipe.files(recipe.id)
+        let recipe_files = results.rows
+        let filesId = recipe_files.map(row => row.file_id)
+
+        let filesPromise = filesId.map(id => File.find(id))
+        results = await Promise.all(filesPromise)
+
+        const files = results.map(result => ({
+            ...result.rows[0],
+            src: `${req.protocol}://${req.headers.host}${result.rows[0].path.replace("public","")}`
+        }))
+
+        console.log(files)
+
+        return res.render('admins/recipes/show', {recipe, files})
+
     },
 
     async edit(req,res) {

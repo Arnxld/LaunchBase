@@ -12,8 +12,25 @@
     </div>
 
     <div class="recipe-apresentation">
-        <div class="image-container">
-            <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+        <div class="gallery">
+            <div class="highlight">
+                {% if not files %}
+                <img src="http://placehold.it/800X500?TEXT=RECEITA SEM FOTO">
+                {% else %}
+                <img src="{{files[0].src}}" alt="files[0].name">
+                {% endif %}
+            </div>
+            <div class="gallery-preview">
+                {% for image in files %}
+                    <img 
+                    src="{{image.src}}" 
+                    alt="{{image.name}}"
+                    {% if loop.index0 == 0 %}
+                    class="active"
+                    {% endif %}
+                    >
+                {% endfor %}
+            </div>
         </div>
         <div class="recipe-info">
             <p class="recipe-title">{{recipe.title}}</p>
