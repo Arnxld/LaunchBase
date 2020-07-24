@@ -21,9 +21,6 @@ module.exports = {
 
     },
     createAtRecipeFiles(fileId, recipeId) {
-        console.log(fileId)
-        console.log(recipeId)
-
         const query = `
         INSERT INTO recipe_files (
             recipe_id,
@@ -69,6 +66,10 @@ module.exports = {
 
     deleteAtRecipeFiles(id) {
         return db.query(`DELETE FROM recipe_files WHERE file_id = $1`, [id])
+    },
+
+    findForIndex(recipeId) {
+        return db.query(`SELECT * FROM recipe_files WHERE recipe_id = $1 LIMIT 1`, [recipeId])
     }
 
 }

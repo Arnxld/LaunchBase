@@ -2,10 +2,22 @@ const Recipe = require('../models/Recipe')
 const File = require('../models/File')
 
 module.exports = {
-    index(req,res) {
-        Recipe.all(function(recipes) {
-            res.render("admins/recipes/index", {recipes})
-        })
+    async index(req,res) {
+        let results = await Recipe.all()
+        const recipes = results.rows
+        const recipesId = recipes.map(recipe => recipe.id)
+        const recipeFilesRowsPromise = recipesId.map(id => File.findForIndex(id))
+        results = await Promise.all(recipeFilesRowsPromise)
+        recipeFilesRows = results.map(result => result.rows[0])
+        filesPromise = recipeFilesRows.map(row => File.find(row.file_id))
+        results = await Promise.all(filesPromise)
+        files = results.map(result => result.rows[0])
+        files = files.map(file => ({
+            ...file,
+            src: `${req.protocol}://${req.headers.host}${file.path.replace("public","")}`
+        })) 
+        console.log(files[0])
+        res.render("admins/recipes/index", {recipes, files})
     },
 
     async create(req,res) {
@@ -69,8 +81,6 @@ module.exports = {
             ...result.rows[0],
             src: `${req.protocol}://${req.headers.host}${result.rows[0].path.replace("public","")}`
         }))
-
-        console.log(files)
 
         return res.render('admins/recipes/show', {recipe, files})
 
@@ -148,7 +158,7 @@ module.exports = {
         await Recipe.update(req.body)
 
 
-        return res.redirect(`/admin/recipes/${req.body.id}/edit`)
+        return res.redirect(`/admin/recipes/${req.body.id}`)
 
     },
 

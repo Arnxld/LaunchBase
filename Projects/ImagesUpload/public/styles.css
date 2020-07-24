@@ -778,20 +778,20 @@ form .item .avatar-preview img {
 .highlight > img {
     width: 100%;
     height: 280px;
-    object-fit: cover;
+    object-fit: none;
 }
 
 .gallery .gallery-preview {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 10px;
+    display: flex;
+    column-gap: 10px;
     margin-right: auto;
+    justify-content: flex-end;
     
 }
 
 .gallery .gallery-preview img{
     height: 49.7px;
-    width: 100%;
+    width: 50px;
     object-fit: none;
     object-position: 50% 50%;
     border: 1px solid #efefef;
