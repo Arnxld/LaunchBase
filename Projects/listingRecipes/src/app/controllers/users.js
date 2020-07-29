@@ -1,5 +1,6 @@
 const User = require("../models/User")
 const Recipe = require("../models/Recipe")
+const File = require("../models/File")
 const db = require("../../config/db")
 
 module.exports = {
@@ -25,6 +26,19 @@ module.exports = {
     async recipes(req,res) {
         let results = await Recipe.all()
         const recipes = results.rows
+
+        async function getImage(recipeId) {
+            let results = await Recipe.files(recipeId)
+            const filesId = results.rows.map(result => result.file_id)
+            let filesPromise = filesId.map(id => File.find(id))
+            results = await Promise.all(filesPromise)
+            let files = results.map(result => result.rows[0])
+            const filesURL = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
+            console.log("esse é o que eu to mexendo: ",filesURL[0])
+
+        }
+
+        await getImage(34)
 
         return res.render("users/recipes", {recipes})
  
