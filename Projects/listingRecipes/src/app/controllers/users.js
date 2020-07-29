@@ -1,9 +1,10 @@
 const User = require("../models/User")
+const Recipe = require("../models/Recipe")
 const db = require("../../config/db")
 
 module.exports = {
     async home(req,res) {
-        let results = await User.all()
+        let results = await Recipe.all()
         const recipes = results.rows
 
         return res.render("users/home", {recipes})
@@ -21,10 +22,12 @@ module.exports = {
         })
     },
 
-    recipes(req,res) {
-        User.recipes(function(recipes) {
-            return res.render("users/recipes", {recipes})
-        })
+    async recipes(req,res) {
+        let results = await Recipe.all()
+        const recipes = results.rows
+
+        return res.render("users/recipes", {recipes})
+ 
     },
 
     show(req,res) {
