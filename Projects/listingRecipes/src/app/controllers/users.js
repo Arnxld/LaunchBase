@@ -34,13 +34,17 @@ module.exports = {
             results = await Promise.all(filesPromise)
             let files = results.map(result => result.rows[0])
             const filesURL = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
-            console.log("esse é o que eu to mexendo: ",filesURL[0])
-
+            return filesURL[0]
         }
 
-        await getImage(34)
+        const recipesPromise = recipes.map(async recipe => {
+            recipe.img = await getImage(recipe.id)
+            return recipe
+        })
 
-        return res.render("users/recipes", {recipes})
+        lastRecipes = await Promise.all(recipesPromise)
+
+        return res.render("users/recipes", {recipes: lastRecipes})
  
     },
 

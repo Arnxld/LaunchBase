@@ -12,6 +12,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    display:flex;
+    flex-direction: column;
 }
 
 .content {
@@ -173,6 +175,7 @@ header {
 footer {
     background: #EEEEEE;
     width: 100%;
+    margin-top: auto;
 }
 
 footer p {
@@ -207,10 +210,6 @@ footer p {
     font-size: 18px;
     color: #444444;
     line-height: 28px;
-}
-
-#footer-about {
-    margin-top: 56px;
 }
 
 /* ============ SEARCH ============== */

@@ -32,18 +32,16 @@
                     </form>
                 </header>
 
-                {% block content %}
-                
-            
-                {% endblock content %}
+                {% block content %}{% endblock content %}
             </section>
 
-            <footer>
-                <p>Todos os direitos reservados, receitas Foodfy.</p>
-            </footer>
         </div>
 
+        {% include "users/parts/footer.njk"%}
+
         <script src="/scripts.js"></script>
+
     </body>
+        
 
 </html>
