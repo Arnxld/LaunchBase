@@ -1,6 +1,7 @@
 const User = require("../models/User")
 const Recipe = require("../models/Recipe")
 const File = require("../models/File")
+const Chef = require("../models/Chef")
 const db = require("../../config/db")
 const {date} = require('../../lib/uteis')
 
@@ -82,6 +83,17 @@ module.exports = {
     async chefs(req, res) {
         let results = await User.chefs()
         const chefs = results.rows
+
+        async function getImage(fileId) {
+            let result = await Chef.file(fileId)
+            const file = result.rows[0]
+            file.url = `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+            console.log(file.url)
+            return file
+        }
+
+        await getImage(70)
+
         return res.render("users/chefs", {chefs})
     }
 }

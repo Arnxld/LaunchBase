@@ -91,5 +91,9 @@ module.exports = {
             if(err) throw `database error! ${err}`
             callback(results.rows)
         })
+    },
+
+    file(id) {
+        return db.query(`SELECT * FROM files WHERE id = $1`, [id])
     }
 }
