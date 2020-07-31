@@ -59,7 +59,7 @@ module.exports = {
         await Promise.all(recipeFilesPromises)
 
 
-        return res.redirect(`/admin/recipes/${recipeId}/edit`)
+        return res.redirect(`/admin/recipes/${recipeId}`)
     },
 
     async show(req, res) {

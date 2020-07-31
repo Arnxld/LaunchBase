@@ -2,12 +2,20 @@ module.exports = {
     date(timestamp) {
         const date = new Date(timestamp)
 
-        const year = date.getUTCFullYear()
-        const month = `0${date.getUTCMonth() + 1}`.slice(-2)
-        const day = `0${date.getUTCDate() + 1}`.slice(-2)
+        const year = date.getFullYear()
+        const month = `0${date.getMonth() + 1}`.slice(-2)
+        const day = `0${date.getDate()}`.slice(-2)
+        const hour = date.getHours()
+        const minutes = date.getMinutes()
 
         return {
-            iso: `${year}-${month}-${day}` // input date e db
+            day,
+            month,
+            year,
+            hour,
+            minutes,
+            iso: `${year}-${month}-${day}`, // input date e db
+            BRformat: `${day}/${month}/${year} às ${hour}:${minutes}`
         }
     }
 }

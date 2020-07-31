@@ -18,30 +18,24 @@ module.exports = {
     },
     
     recipesSearch(filter, callback) {
-        db.query(`
+        return db.query(`
             SELECT recipes.*, chefs.name AS chef_name
             FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             WHERE recipes.title ILIKE '%${filter}%'
-        `, function(err, results) {
-            if(err) throw `database error ${err}`
-
-            callback(results.rows)
-        })
+            ORDER BY updated_at DESC
+        `)
 
     
     },
 
-    chefs(callback) {
-        db.query(`
+    chefs() {
+        return db.query(`
         SELECT chefs.*, count(recipes.*) as total_recipes
         FROM chefs
         LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
         GROUP BY chefs.id
-        ORDER BY total_recipes DESC`, function(err, results) {
-            if(err) throw `database error ${err}`
-            callback(results.rows)
-        })
+        ORDER BY total_recipes DESC`)
     },
 
     recipes(callback) {
