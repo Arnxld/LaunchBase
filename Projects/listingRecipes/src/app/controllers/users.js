@@ -8,7 +8,24 @@ const {date} = require('../../lib/uteis')
 module.exports = {
     async home(req,res) {
         let results = await Recipe.all()
-        const recipes = results.rows
+        let recipes = results.rows
+
+        async function getImage(recipeId) {
+            let results = await Recipe.files(recipeId)
+            const filesId = results.rows.map(result => result.file_id)
+            let filesPromise = filesId.map(id => File.find(id))
+            results = await Promise.all(filesPromise)
+            let files = results.map(result => result.rows[0])
+            const filesURL = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
+            return filesURL[0]
+        }
+
+        const recipesPromise = recipes.map(async recipe => {
+            recipe.img = await getImage(recipe.id)
+            return recipe
+        })
+
+        recipes = await Promise.all(recipesPromise)
 
         return res.render("users/home", {recipes})
     },
@@ -82,17 +99,23 @@ module.exports = {
 
     async chefs(req, res) {
         let results = await User.chefs()
-        const chefs = results.rows
+        let chefs = results.rows
 
         async function getImage(fileId) {
             let result = await Chef.file(fileId)
             const file = result.rows[0]
-            file.url = `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-            console.log(file.url)
-            return file
+            fileURL = `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+            return fileURL
         }
 
         await getImage(70)
+
+        const chefsPromise = chefs.map(async chef => {
+        chef.img = await getImage(chef.file_id)
+        return chef
+        })
+
+        chefs = await Promise.all(chefsPromise)
 
         return res.render("users/chefs", {chefs})
     }

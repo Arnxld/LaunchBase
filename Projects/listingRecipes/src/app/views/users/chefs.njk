@@ -11,7 +11,7 @@
 
     {% for chef in chefs %}
         <div class="card" style="pointer-events: none">
-            <section class="image-container" style="background: url({{chef.avatar_url}}) no-repeat center center / cover";></section>
+            <section class="image-container" style="background: url('{{chef.img}}') no-repeat center center / cover";></section>
             <div class="info">
                 <p>{{chef.name}}</p>
                 <p>{{chef.total_recipes}} {{"receita" if chef.total_recipes == 1 else "receitas"}}</p>

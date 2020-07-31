@@ -15,7 +15,7 @@
 
     {% for chef in chefs %}
         <div class="card">
-            <section class="image-container" style="background: url({{chef.avatar_url}}) no-repeat center center / cover";></section>
+            <section class="image-container" style="background: url('{{chef.img}}') no-repeat center center / cover";></section>
             <div class="info">
                 <p>{{chef.name}}</p>
                 <a href='/admin/chefs/{{chef.id}}'>Visualizar</a>

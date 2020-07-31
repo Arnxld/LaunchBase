@@ -3,12 +3,8 @@ const {date} = require("../../lib/uteis")
 
 module.exports = {
 
-    all(callback) {
-        db.query(`SELECT * FROM chefs ORDER BY name ASC`, function(err, results) {
-            if(err) throw `database error! ${err}`
-
-            callback(results.rows)
-        })
+    all() {
+        return db.query(`SELECT * FROM chefs ORDER BY name ASC`)
     },
 
     //insere um chef no db
@@ -33,7 +29,7 @@ module.exports = {
     },
 
     find(id) {
-        return db.query(`SELECT chefs.*, count(recipes) AS total_recipes,
+        return db.query(`SELECT chefs.*, count(recipes) AS total_recipes
         FROM chefs
         LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
         WHERE chefs.id = $1
@@ -82,15 +78,12 @@ module.exports = {
         })
     },
 
-    showRecipes(id, callback) {
-        db.query(`
+    showRecipes(id) {
+        return db.query(`
         SELECT recipes.*
         FROM recipes
         LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-        WHERE chefs.id = $1`, [id], function(err, results) {
-            if(err) throw `database error! ${err}`
-            callback(results.rows)
-        })
+        WHERE chefs.id = $1`, [id])
     },
 
     file(id) {
