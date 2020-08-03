@@ -48,10 +48,10 @@ CREATE TABLE "users" (
 );
 
 -- foreign key
-ALTER TABLE "products" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id"
+ALTER TABLE "products" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id")
 
 -- create procedure
-CREATE FUNCTION  trigger_set_timestamp()
+CREATE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
   NEW.updated_at = NOW();
