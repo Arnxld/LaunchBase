@@ -5,9 +5,11 @@
         {% block head %}
             <title>Launchstore</title>
         {%endblock%}
-        <link rel="stylesheet" href="/styles.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-            
+        {% include "parts/styles.njk" %}
+        <!-- é melhor colocar os diferentes arquivos css no html ao 
+        invés do import no css por causa da performance
+        (no devtools waterfall da pra ver que o import é executado 
+        depois de tudo acabar no html-->
     </head>
 
     <body>

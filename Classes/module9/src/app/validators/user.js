@@ -26,7 +26,10 @@ async function post(req,res,next) {
     })
 
     // check if password matches
-    if(password != passwordRepeat) return res.send("Password mismatch!")
+    if(password != passwordRepeat) return res.render("user/register", {
+        user: req.body,
+        error: "As senhas devem ser iguais."
+    })
 
     next()
 }
