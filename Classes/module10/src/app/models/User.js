@@ -60,18 +60,16 @@ module.exports = {
         
     },
     
-    async update(id, fields) {
-
+    async update(id,  fields) {
         let query = "UPDATE users SET"
 
         Object.keys(fields).map((key, index, array) => {
             if((index + 1) < array.length) {
                 query = `${query}
-                    ${key} = '${fields[key]},'
+                    ${key} = '${fields[key]}',
                 `
-            }
-            else {
-                // last iteration
+            } else {
+                // última iteração
                 query = `${query}
                     ${key} = '${fields[key]}'
                     WHERE id = ${id}
@@ -81,6 +79,5 @@ module.exports = {
 
         await db.query(query)
         return
-
-    }
+    },
 }
