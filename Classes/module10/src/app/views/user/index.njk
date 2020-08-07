@@ -11,8 +11,8 @@
         </div>
 
         <div class="fields">
-            <input type="hidden" name="id" value={{user.id}}>
            {% include 'user/fields.njk'%}
+            <input type="hidden" name="id" value={{user.id}}>
         </div>
 
         <button class="button edit" type="submit">Atualizar</button>

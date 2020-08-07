@@ -1,11 +1,18 @@
 const express = require('express')
 const nunjucks = require('nunjucks')
 const routes = require('./routes') // o server pega o index automaticamente
-const server = express()
-const session = require('./config/session')
 const methodOverride = require('method-override')
+const session = require('./config/session')
+
+const server = express()
 
 server.use(session)
+
+// para a session ficar disponível em todo o nunjucks
+server.use((req, res, next) => {
+    res.locals.session = req.session
+    next()
+})
 server.use(express.urlencoded({ extended: true})) // faz o req.body funcionar
 server.use (express.static('public'))
 server.use(methodOverride('_method'))

@@ -19,12 +19,13 @@ module.exports = {
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING id
         `
-
+        
+        console.log(data.user_id)
         data.price = data.price.replace(/\D/g, "") // no banco de dados é integer
 
         const values = [
             data.category_id,
-            data.user_id || 1,
+            data.user_id || 3,
             data.name,
             data.description,
             data.old_price || data.price,
@@ -32,6 +33,8 @@ module.exports = {
             data.quantity,
             data.status || 1
         ]
+
+        
 
         return db.query(query, values)
     },
