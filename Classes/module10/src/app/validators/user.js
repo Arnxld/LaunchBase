@@ -45,6 +45,7 @@ async function post(req,res,next) {
     
     next()
 }
+
 async function show(req, res, next) {
     const {userId: id} = req.session
 
