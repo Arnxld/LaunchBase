@@ -1,0 +1,17 @@
+.messages {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 344px;
+    height: 135px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    top: 12px;
+}
+
+#admins-page div.messages.error {
+    background-color: #DC4747;
+}

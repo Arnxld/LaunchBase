@@ -9,6 +9,7 @@ const SessionController = require("./app/controllers/SessionController")
 const ProfileController = require("./app/controllers/ProfileController")
 const UserController = require("./app/controllers/UserController")
 
+const UserValidator = require('./app/validators/user')
 
 // área desbloqueada do site
 
@@ -77,7 +78,7 @@ routes.delete('/admin/chefs', chefs.delete) // deleta o chefe
 
 // routes.get('/admin/users', UserController.list) // Mostrar a lista de usuários cadastrados
 routes.get('/admin/register', UserController.registerForm) // Mostra o formulário de registro de um usuário
-routes.post('/admin/users', UserController.post) // Cadastrar um usuário
+routes.post('/admin/users', UserValidator.post, UserController.post) // Cadastrar um usuário
 // routes.put('/admin/users', UserController.put) // Editar um usuário
 // routes.delete('/admin/users', UserController.delete) // Deletar um usuário
 

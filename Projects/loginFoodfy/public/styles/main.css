@@ -19,6 +19,7 @@ body {
 
 .content {
     margin: 0 230px;
+    position: relative;
 }
 
 header {
@@ -142,6 +143,7 @@ header {
     height: 140px;
     border-radius: 15px;
 }
+
 
 #admins-page .cards.recipes .card section {
     height: 80px;
@@ -458,8 +460,12 @@ footer p {
     justify-content: space-between;
 }
 
-#admins-page .content form .flexFields .item {
-    width: 450px;
+#admins-page .content form .flexFields .field-group {
+    width: 100%
+}
+
+#admins-page .content form .flexFields .field-group .item {
+    width: 95%
 }
 
 #admins-page .content form .item#isAdmin {
