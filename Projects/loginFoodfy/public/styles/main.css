@@ -418,7 +418,8 @@ footer p {
     font-weight: bold;
 }
 
-#admins-page .content form .item input[type="text"] {
+#admins-page .content form .item input[type="text"],
+#admins-page .content form .item input[type="password"] {
     width: 100%;
     background: #FFFFFF;
     border: 1px solid #DDDDDD;
@@ -426,6 +427,8 @@ footer p {
     height: 49px;
     font-size: 18px;
     font-weight: bold;
+    padding: 0 8px;
+    box-sizing: border-box;
     
 }
 
@@ -837,3 +840,4 @@ form .item .avatar-preview img {
 .gallery .gallery-preview img.active {
     opacity: 1
 }
+

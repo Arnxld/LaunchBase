@@ -10,6 +10,7 @@ const ProfileController = require("./app/controllers/ProfileController")
 const UserController = require("./app/controllers/UserController")
 
 const UserValidator = require('./app/validators/user')
+const ProfileValidator = require('./app/validators/profile')
 
 // área desbloqueada do site
 
@@ -76,7 +77,7 @@ routes.delete('/admin/chefs', chefs.delete) // deleta o chefe
 
 // // Rotas que o administrador irá acessar para gerenciar usuários
 
-// routes.get('/admin/users', UserController.list) // Mostrar a lista de usuários cadastrados
+routes.get('/admin/users', UserController.list) // Mostrar a lista de usuários cadastrados
 routes.get('/admin/register', UserController.registerForm) // Mostra o formulário de registro de um usuário
 routes.post('/admin/users', UserValidator.post, UserController.post) // Cadastrar um usuário
 // routes.put('/admin/users', UserController.put) // Editar um usuário
@@ -84,8 +85,8 @@ routes.post('/admin/users', UserValidator.post, UserController.post) // Cadastra
 
 
 // Rotas de perfil de um usuário
-// routes.get('/admin/profile', ProfileController.index) // mostra os dados do usuário logado
-// routes.put('/admin/profile', ProfilleController.put)
+routes.get('/admin/profile', ProfileValidator.index, ProfileController.index) // mostra os dados do usuário logado
+routes.put('/admin/profile', ProfileValidator.update, ProfileController.put) // update do usuário logado
 
 
 

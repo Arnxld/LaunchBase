@@ -1,3 +1,30 @@
+@keyframes hideCreateMessage {
+    to {
+        opacity: 0px;
+        visibility: hidden;
+    }
+}
+
+.createMessages {
+    width:100%;
+    padding: 16px 16px;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 0 0 8px 8px;
+    visibility: initial;
+    opacity: 1;
+    animation: hideCreateMessage 4s ease-in-out forwards;
+}
+
+.createMessages.error {
+    background-color: #DC4747;
+}
+
+.createMessages.success {
+    background-color: #01B12A;
+}
+
 .messages {
     position: absolute;
     display: flex;
