@@ -25,6 +25,7 @@ body {
 header {
     height: 93px;
     line-height: 32px;
+    position: relative
 }
 
 #users-page header {
@@ -49,6 +50,41 @@ header {
 .header-links a.active {
     font-weight: bold;
 }
+
+header .logoutButton {
+    position: absolute;
+    display: flex;
+    top: 29px;
+    right: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    align-items: center;
+    max-height: 18px;
+}
+
+header .logoutButton button {
+    background: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    
+}
+header .logoutButton a {
+    color: white;
+    text-decoration: none;
+    line-height: 18px;
+    font-size: 15px;
+    cursor: pointer;
+    
+}
+
+header .logoutButton > a {
+    margin-right: 8px;
+}
+
 
 #users-page #filterForm {
     text-align: end;

@@ -5,6 +5,13 @@
     }
 }
 
+@keyframes hideMessages {
+    to {
+        right: -370px;
+        visibility: hidden;
+    }
+}
+
 .createMessages {
     width:100%;
     padding: 16px 16px;
@@ -37,8 +44,11 @@
     color: white;
     font-size: 16px;
     top: 12px;
+    right: 18px;
+    visibility: initial;
+    animation: hideMessages 400ms 3s forwards;
 }
 
-#admins-page div.messages.error {
+.messages.error {
     background-color: #DC4747;
 }
