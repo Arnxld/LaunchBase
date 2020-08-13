@@ -10,6 +10,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
 }
 
 .foodfyLogo-container {
@@ -25,7 +26,7 @@ body {
 }
 
 .content {
-    max-width: 500px;
+    width: 500px;
     margin: auto;
 }
 .sessionTitle {
@@ -37,6 +38,7 @@ body {
     font-size: 24px;
     color: #111;
 }
+
 
 form .fields .item p {
     font-size: 16px;
@@ -51,10 +53,14 @@ form .fields .item input {
     width: 100%;
     border-radius: 4px;
     padding: 15px 14px;
-    margin-bottom: 35px
+    margin-bottom: 35px;
+    box-sizing: border-box;
+
 }
 
 .buttons {
+    position: relative;
+    height:37px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,4 +80,9 @@ form .fields .item input {
 
     color: #FFF;
     font-size: 16px;
+}
+
+.buttons #forgotSubmitButton {
+    position: absolute;
+    right: 0
 }

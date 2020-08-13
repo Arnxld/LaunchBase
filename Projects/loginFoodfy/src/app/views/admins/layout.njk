@@ -24,11 +24,13 @@
 
                     <div class="logoutButton">
                         <a href="/admin/profile">Minha Conta</a>
+                        {% if session.userId %}
                         <form action="/logout" method="POST">
                             <button type="submit">
                                 Sair
                             </button>
                         </form>
+                        {% endif %}
                     </div>
                 </header>
 

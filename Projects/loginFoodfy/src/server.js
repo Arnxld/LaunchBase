@@ -6,7 +6,11 @@ const session = require('./config/session')
 
 const server = express()
 
-server.use(session) // agora posso usar req.session na aplicação inteira
+server.use(session) // usar req.session na aplicação inteira
+server.use( (req, res, next) => {
+    res.locals.session = req.session // possibilita o uso do session no nunjucks (session.userId no layout)
+    next()
+})
 server.use(express.urlencoded({ extended: true })) // faz o req.body funcionar
 server.use(express.static('public'))
 server.use(methodOverride('_method'))

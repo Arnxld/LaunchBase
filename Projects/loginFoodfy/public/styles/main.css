@@ -37,6 +37,7 @@ header {
 
 .header-links {
     margin-left: 122.4px;
+    display: flex;
 }
 
 .header-links a {
