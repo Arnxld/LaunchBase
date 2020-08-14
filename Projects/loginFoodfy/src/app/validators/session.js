@@ -28,7 +28,7 @@ async function login(req, res, next) {
 
 async function forgot(req, res, next) {
     try{
-        const { email, password, passwordRepeat } = req.body
+        const { email } = req.body
 
         let user = await UserModel.findOne({ where: {email} })
 
@@ -52,7 +52,54 @@ async function forgot(req, res, next) {
     
 }
 
+async function reset(req, res, next) {
+    try {
+
+        //procurar o usuário
+        const { email, token, password, passwordRepeat } = req.body
+
+        const user = await UserModel.findOne({ where: {email} })
+        if (!user) res.render("admins/session/password-reset", {
+            user: req.body,
+            token,
+            Error: "Email não cadastrado!"
+        })
+
+        // ver se a senha bate
+        if (password != passwordRepeat) res.render("admins/session/password-reset", {
+            user: req.body,
+            token,
+            Error: "Repetição de senha incorreta!"
+        })
+
+        // verificar se o token bate
+        if(token != user.reset_token) res.render("admins/session/password-reset", {
+            user: req.body,
+            token,
+            Error: "Token Inválido! Solicite outra troca de senha antes de tentar novamente."
+        })
+
+        // verificar se o token não expirou
+        let now = new Date()
+        now = now.setHours(now.getHours)
+
+        if(now > user.reset_token_expires) res.render("admins/session/password-reset", {
+            user: req.body,
+            token,
+            Error: "Token Expirado! Solicite outra troca de senha antes de tentar novamente."
+        })
+
+        req.user = user
+
+        next()
+    }
+    catch(err) {
+        console.error(err)
+    }
+}
+
 module.exports = {
     login,
-    forgot
+    forgot,
+    reset
 }
