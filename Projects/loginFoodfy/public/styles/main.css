@@ -878,3 +878,55 @@ form .item .avatar-preview img {
     opacity: 1
 }
 
+/* USER INDEX */
+#admins-page .wrapper #newUser {
+    width: 139px;
+    text-align: center;
+}
+
+#admins-page .cards.users {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 64px;
+    gap: 52px 200px;
+}
+
+#admins-page .cards.users .card {
+    display: block;
+    pointer-events: initial;
+    cursor: initial;
+}
+
+#admins-page .cards.users .card #name {
+    font-size: 18px;
+    color: #111;
+    line-height: 22px;
+    margin-bottom: 4px;
+}
+
+#admins-page .cards.users .card #email {
+    font-size: 14px;
+    color:#777;
+    line-height: 17px;
+}
+
+#admins-page .cards.users .card .buttons {
+    display: flex;
+    margin-top: 16px;
+    align-items: center;
+}
+
+#admins-page .cards.users .card .buttons a {
+    margin-right: 16px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #6558C3;
+}
+
+#admins-page .cards.users .card .buttons button {
+    background: none;
+    font-size: 14px;
+    color: #F55A5A;
+    line-height: 17px;
+    cursor: pointer;
+}

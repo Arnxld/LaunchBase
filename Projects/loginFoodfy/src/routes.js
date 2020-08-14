@@ -80,8 +80,9 @@ routes.post('/password-reset', SessionValidator.reset, SessionController.reset)
 
 // Rotas que o administrador irá acessar para gerenciar usuários
 
-routes.get('/admin/users', isAdmin, UserController.list) // Mostrar a lista de usuários cadastrados
 routes.get('/admin/register', isAdmin, UserController.registerForm) // Mostra o formulário de registro de um usuário
+routes.get('/admin/users', isAdmin, UserController.list) // Mostrar a lista de usuários cadastrados
+routes.get('/admin/users/:id', isAdmin, UserController.updateForm) // Mostrar a lista de usuários cadastrados
 routes.post('/admin/users', isAdmin, UserValidator.post, UserController.post) // Cadastrar um usuário
 // routes.put('/admin/users', UserController.put) // Editar um usuário
 // routes.delete('/admin/users', UserController.delete) // Deletar um usuário

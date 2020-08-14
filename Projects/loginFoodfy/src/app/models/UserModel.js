@@ -2,6 +2,11 @@ const db = require('../../config/db')
 const { hash } = require('bcryptjs') // password encryption library
 
 module.exports = {
+    async all() {
+        const results = await db.query(`SELECT * FROM users`)
+
+        return results.rows
+    },
     async findOne(filters) {
         let query = "SELECT * FROM users"
 
@@ -29,23 +34,27 @@ module.exports = {
                 password,
                 is_admin
                 )VALUES ($1, $2, $3, $4)
-                RETURNING id
+                RETURNING id, email
                 `
                 
-                //hash de senha
-                let password = '111'
-                const passwordHash = await hash(password, 8)
+                // gerando uma senha aleatória
+                let randomPassword = Math.random().toString(36).slice(-5)
+                const passwordHash = await hash(randomPassword, 8)
                 
                 const values = [
                     data.name,
                     data.email,
                     passwordHash,
-                    data.is_admin
+                    data.is_admin || false
                 ]
                 
                 const results = await db.query(query, values)
                 
-                return results.rows[0].id
+                return {
+                    id: results.rows[0].id,
+                    email: results.rows[0].email,
+                    password: randomPassword
+                }
             }
                 
                 catch(err) {
