@@ -19,8 +19,9 @@ module.exports = {
                 ingredients,
                 preparation,
                 information,
-                created_at
-            ) VALUES ($1, $2, $3, $4, $5, $6)
+                created_at,
+                user_id
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING id
         `
 
@@ -30,7 +31,8 @@ module.exports = {
             data.ingredients,
             data.preparation,
             data.information,
-            date(Date.now()).iso
+            date(Date.now()).iso,
+            data.user_id
         ]
 
         return db.query(query, values)

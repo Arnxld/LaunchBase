@@ -1,4 +1,5 @@
 const UserModel = require('../models/UserModel')
+const User = require('../models/User')
 
 async function post(req,res, next) {
     // checar se todos os campos estão preenchidos
@@ -24,6 +25,21 @@ async function post(req,res, next) {
     next()
 }
 
+async function adminCannotDeleteOwnAccount(req, res, next) {
+    const users = await UserModel.all()
+
+    if(req.session.userId == req.body.id) {
+        return res.render('admins/user/index', {
+            users,
+            createError:'Um administrador não pode deletar a própria conta.'
+        })
+    }
+
+    next()
+}
+
+
 module.exports = {
-    post
+    post,
+    adminCannotDeleteOwnAccount
 }

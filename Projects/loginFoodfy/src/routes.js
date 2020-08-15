@@ -13,7 +13,7 @@ const UserValidator = require('./app/validators/user')
 const ProfileValidator = require('./app/validators/profile')
 const SessionValidator = require('./app/validators/session')
 
-const { onlyUsers, isAdmin, isLogged } = require('./app/middlewares/session')
+const { onlyUsers, isAdmin, isLogged, onlyOwnUsers } = require('./app/middlewares/session')
 
 // área desbloqueada do site
 
@@ -34,18 +34,18 @@ routes.get('/chefs', users.chefs)
 // admin de recipes
 routes.get('/admin/recipes', onlyUsers, recipes.index) // mostra a lista de receitas no admin
 
-routes.get('/admin/recipes/create', isAdmin, recipes.create) // mostra o formulário de criação de uma receita
+routes.get('/admin/recipes/create', onlyUsers, recipes.create) // mostra o formulário de criação de uma receita
 
 // recebendo um Array de arquivos no campo "photos" limitado a 5 arquivos
-routes.post('/admin/recipes', isAdmin, multer.array("photos", 5), recipes.post) // cadastra uma nova receita
+routes.post('/admin/recipes', onlyUsers, multer.array("photos", 5), recipes.post) // cadastra uma nova receita
 
-routes.get('/admin/recipes/:id', isAdmin, recipes.show) // mostra os dados de uma receita
+routes.get('/admin/recipes/:id', onlyUsers, recipes.show) // mostra os dados de uma receita
 
-routes.get('/admin/recipes/:id/edit', isAdmin, recipes.edit) // mostra o formulário de edição de uma receita
+routes.get('/admin/recipes/:id/edit', onlyOwnUsers, recipes.edit) // mostra o formulário de edição de uma receita
 
-routes.put('/admin/recipes', isAdmin, multer.array("photos", 5), recipes.put)
+routes.put('/admin/recipes', onlyUsers,  multer.array("photos", 5), recipes.put)
 
-routes.delete('/admin/recipes', isAdmin, recipes.delete)
+routes.delete('/admin/recipes', onlyUsers, recipes.delete)
 
 
 
@@ -84,8 +84,8 @@ routes.get('/admin/register', isAdmin, UserController.registerForm) // Mostra o 
 routes.get('/admin/users', isAdmin, UserController.list) // Mostrar a lista de usuários cadastrados
 routes.get('/admin/users/:id', isAdmin, UserController.updateForm) // Mostrar a lista de usuários cadastrados
 routes.post('/admin/users', isAdmin, UserValidator.post, UserController.post) // Cadastrar um usuário
-// routes.put('/admin/users', UserController.put) // Editar um usuário
-// routes.delete('/admin/users', UserController.delete) // Deletar um usuário
+routes.put('/admin/users', isAdmin, UserController.put) // Editar um usuário
+routes.delete('/admin/users', isAdmin, UserValidator.adminCannotDeleteOwnAccount, UserController.delete) // Deletar um usuário
 
 
 // Rotas de perfil de um usuário

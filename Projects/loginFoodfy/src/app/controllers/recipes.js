@@ -1,5 +1,6 @@
 const Recipe = require('../models/Recipe')
 const File = require('../models/File')
+const UserModel = require('../models/UserModel')
 
 module.exports = {
     async index(req,res) {
@@ -38,6 +39,7 @@ module.exports = {
             return res.send("Envie ao menos uma imagem!")
         }
 
+        req.body.user_id = req.session.userId
         let results = await Recipe.create(req.body)
         const recipeId = results.rows[0].id
 
@@ -86,33 +88,38 @@ module.exports = {
     },
 
     async edit(req,res) {
-        let results = await Recipe.find(req.params.id)
-        const recipe = results.rows[0]
+        try {
 
-        if(!recipe) return res.send("Receita não encontrada")
+            let results = await Recipe.find(req.params.id)
+            const recipe = results.rows[0]
 
-        //get chefOptions
-        results = await Recipe.chefsSelectOptions()
-        options = results.rows
+            if(!recipe) return res.send("Receita não encontrada")
 
-        //get images
-        results = await Recipe.files(recipe.id) 
-        let filesId = results.rows // seleciona os campos do db com o id da receita
-        filesId = filesId.map(file => file.file_id) // pego o id dos arquivos da receita
+            //get chefOptions
+            results = await Recipe.chefsSelectOptions()
+            options = results.rows
 
-        let filesPromise = filesId.map(id => File.find(id)) // array de promessas para pegar os arquivos
-        results = await Promise.all(filesPromise) 
+            //get images
+            results = await Recipe.files(recipe.id) 
+            let filesId = results.rows // seleciona os campos do db com o id da receita
+            filesId = filesId.map(file => file.file_id) // pego o id dos arquivos da receita
 
-        let files = results.map(result => ({ // parenteses encapsulando para fazer um objeto
-            ...result.rows[0], // aqui eu espalho UM arquivo
-            // caminho da imagem no browser (colocar no buscador do browser) ex: localhost:3000/images/nome
-            src: `${req.protocol}://${req.headers.host}${result.rows[0].path.replace("public","")}`
-        }))
+            let filesPromise = filesId.map(id => File.find(id)) // array de promessas para pegar os arquivos
+            results = await Promise.all(filesPromise) 
+
+            let files = results.map(result => ({ // parenteses encapsulando para fazer um objeto
+                ...result.rows[0], // aqui eu espalho UM arquivo
+                // caminho da imagem no browser (colocar no buscador do browser) ex: localhost:3000/images/nome
+                src: `${req.protocol}://${req.headers.host}${result.rows[0].path.replace("public","")}`
+            }))
 
 
-        return res.render('admins/recipes/edit', {recipe, chefOptions:options, files})
-
+            return res.render('admins/recipes/edit', {recipe, chefOptions:options, files})
         
+        }
+        catch(err) {
+            console.error()
+        }
     },
 
     async put(req,res) {

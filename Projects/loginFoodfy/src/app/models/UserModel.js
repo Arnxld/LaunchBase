@@ -1,5 +1,8 @@
 const db = require('../../config/db')
 const { hash } = require('bcryptjs') // password encryption library
+const fs = require('fs')
+const Recipe = require('./Recipe')
+const File = require('./File')
 
 module.exports = {
     async all() {
@@ -80,5 +83,41 @@ module.exports = {
 
         await db.query(query)
         return
+    },
+    async delete(id) {
+        // pegar todas as receitas desse usuário
+        let results = await db.query(`SELECT * FROM recipes WHERE user_id = $1`, [id])
+        recipes = results.rows
+        // console.log(recipes)
+
+        // pegar todas as imagens das receitas
+        recipeFilesRowsPromise = recipes.map(recipe => Recipe.files(recipe.id))
+
+        let files = []
+        let recipeFilesRowsResults = await Promise.all(recipeFilesRowsPromise)
+        let recipesRows = recipeFilesRowsResults.map(results => results.rows)
+        for(recipe of recipesRows) {
+            for(file of recipe) {
+                files.push(file)
+            }
+        }
+
+        const filesPromise = files.map(file => File.find(file.file_id))
+        filesPromiseResults = await Promise.all(filesPromise)
+        files = filesPromiseResults.map(result => result.rows[0])
+
+        // remover o usuário
+        await db.query('DELETE FROM users WHERE id = $1', [id])
+
+        // remover as imagens da pasta public e da table files (não tem cascade delete nessa tabela)
+        files.map(file => {
+            try{
+                File.delete(file.id)
+            }
+            catch(err) {
+                console.error(err)
+            }
+        })
+
     }
 }

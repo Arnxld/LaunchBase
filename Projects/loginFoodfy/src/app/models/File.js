@@ -48,6 +48,7 @@ module.exports = {
             const result = await db.query('SELECT * FROM files WHERE id = $1', [id])
             const file = result.rows[0]
             
+            
             //deletando da pasta images
             fs.unlinkSync(file.path)
 

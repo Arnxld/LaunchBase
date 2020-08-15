@@ -13,8 +13,9 @@
     <button type="submit" form="createForm">Salvar usuário</button>
 </div>
 
-<form id="createForm" action="/admin/users" method="POST">
+<form id="createForm" action="/admin/users?_method=PUT" method="POST">
     {% include "admins/user/fields.njk"%}
+    <input type="hidden" name="id" value={{user.id}}>
 </form>
 
 <script src="/scripts.js"></script>
