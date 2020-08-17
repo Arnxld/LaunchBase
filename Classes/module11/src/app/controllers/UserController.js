@@ -5,7 +5,6 @@ const User = require('../models/User')
 const Product = require('../models/Product')
 
 const {formatCep, formatCpfCnpj} = require("../../lib/utils")
-const Product = require('../models/Product')
 
 module.exports = {
     registerForm(req, res) {
