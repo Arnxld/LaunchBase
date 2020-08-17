@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {% block head %}
+            <title>Launchstore</title>
+        {%endblock%}
+        {% include "parts/styles.njk" %}
+        <!-- é melhor colocar os diferentes arquivos css no html ao 
+        invés do import no css por causa da performance
+        (no devtools waterfall da pra ver que o import é executado 
+        depois de tudo acabar no html-->
+    </head>
+
+    <body>
+        {% include "parts/messages.njk" %}
+        
+        {% include "parts/header.njk" %}
+
+        {% block content %} {% endblock %}
+
+        {% include "parts/footer.njk"%}
+    </body>
+
+</html>
