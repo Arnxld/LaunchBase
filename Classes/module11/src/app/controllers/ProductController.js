@@ -1,3 +1,6 @@
+const { unlinkSync} = require('fs')
+
+
 const Category = require('../models/Category')
 const Product = require('../models/Product')
 const File = require('../models/File')
@@ -47,10 +50,10 @@ module.exports = {
 
 
             const filesPromise = req.files.map(file => 
-                File.create({...file, product_id}))
+                File.create({ name: file.filename, path: file.path, product_id}))
             await Promise.all(filesPromise) // espera todas as promessas serem executadas
 
-            return res.redirect(`/products/${productId}`)
+            return res.redirect(`/products/${product_id}`)
 
         }
         catch (err) {
@@ -101,7 +104,7 @@ module.exports = {
             product.price = formatPrice(product.price)
     
             //get categories
-            const categories = await Category.all()
+            const categories = await Category.findAll()
     
             //get images
             let files = await Product.files(product.id)
@@ -176,14 +179,22 @@ module.exports = {
         
     },
     async delete(req, res) {
-        try {
-            await Product.delete(req.body.id)
+        const files = await Product.files(req.body.id)
+        await Product.delete(req.body.id)
 
-            return res.redirect('/products/create')
-        }
-        catch(err) {
-            console.error(err)
+        // remover as imagens da pasta public
+        files.map(file => {
+            try {
+                unlinkSync(file.path)
+
+            } catch(err) {
+                console.error(err)
+            }
+        
+        })
+
+
+        return res.redirect('/products/create')
         }
         
     }
-}
