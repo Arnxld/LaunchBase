@@ -6,7 +6,7 @@ module.exports = {
     async index(req,res) {
         try {
 
-            const {filter, category} = req.query
+            let {filter, category} = req.query
 
             if(!filter || filter.toLowerCase() == 'toda a loja') filter = null
 

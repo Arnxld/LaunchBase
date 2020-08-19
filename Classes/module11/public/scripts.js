@@ -1,4 +1,4 @@
-const MailMessage = require("nodemailer/lib/mailer/mail-message")
+
 
 const Mask = {
     apply(input, func) {
